@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct ContentView: View {
     @State var results = [Pokedata]()
@@ -19,16 +20,21 @@ struct ContentView: View {
                 print(self.textFieldText)
             }).textCase(.lowercase)
                          
-            
-            List(results, id: \.ids) { item in
-                VStack(alignment: .leading) {
-                    Text(item.id)
-                    Text(item.name)
-                    Text(item.supertype)
-                    Text(item.images.small)
-                    
+            if results.count > 0 {
+                List(results, id: \.ids) { item in
+                    VStack(alignment: .leading) {
+                        KFImage(URL(string: item.images.small))
+                        Text(item.id)
+                        Text(item.name)
+                        Text(item.supertype)
+                        
+                        
+                    }
                 }
+            }else{
+                Text("No hay resultados para esa busqueda")
             }
+            
             
         }
         
